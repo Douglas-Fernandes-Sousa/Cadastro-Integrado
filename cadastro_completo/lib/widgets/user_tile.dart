@@ -27,7 +27,12 @@ class UserTile extends StatelessWidget {
         child: Row(
           children: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushNamed(
+                  '/user-form',
+                  arguments: user,
+                );
+              },
               icon: const Icon(
                 Icons.edit,
                 color: Colors.orange,

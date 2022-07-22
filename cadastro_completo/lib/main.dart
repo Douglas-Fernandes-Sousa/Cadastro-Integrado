@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import 'package:cadastro_completo/provider/user_provider.dart';
+import 'package:cadastro_completo/routes/app_routes.dart';
+import 'package:cadastro_completo/views/user_form.dart';
 import 'package:cadastro_completo/views/user_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -31,6 +33,9 @@ class MyApp extends StatelessWidget {
         ),
         home: const UserList(),
         debugShowCheckedModeBanner: false,
+        routes: {
+          AppRoutes.User_Form: (context) => UserForm(),
+        },
       ),
     );
   }

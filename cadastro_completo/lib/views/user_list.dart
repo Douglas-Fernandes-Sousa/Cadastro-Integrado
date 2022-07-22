@@ -15,7 +15,9 @@ class UserList extends StatelessWidget {
         title: const Text('Lista de Usuarios'),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed('/user-form');
+            },
             icon: const Icon(Icons.add),
           ),
         ],
