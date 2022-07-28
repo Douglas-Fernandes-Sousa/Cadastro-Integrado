@@ -21,9 +21,11 @@ class UsersProvider with ChangeNotifier {
   }
 
   void put(User user) {
-    if (user.id.trim().isNotEmpty && _items.containsKey(user.id)) {
+    if (user.id != null &&
+        user.id!.trim().isNotEmpty &&
+        _items.containsKey(user.id)) {
       //alterar
-      _items.update(user.id, (_) => user);
+      _items.update(user.id.toString(), (_) => user);
     } else {
 //adicionar
       final id = Random().nextDouble().toString();

@@ -1,27 +1,29 @@
+import 'package:cadastro_completo/provider/user_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../models/user.dart';
 
 class UserTile extends StatelessWidget {
-  const UserTile({Key? key, this.user}) : super(key: key);
+  const UserTile({Key? key, required this.user}) : super(key: key);
 
-  final User? user;
+  final User user;
 
   @override
   Widget build(BuildContext context) {
-    final avatar = user!.avatarUrl.isEmpty
+    final avatar = user.avatarUrl.isEmpty
         ? const CircleAvatar(
             child: Icon(
               Icons.person,
             ),
           )
         : CircleAvatar(
-            backgroundImage: NetworkImage(user!.avatarUrl),
+            backgroundImage: NetworkImage(user.avatarUrl),
           );
     return ListTile(
       leading: avatar,
-      title: Text(user!.nome),
-      subtitle: Text(user!.email),
+      title: Text(user.nome),
+      subtitle: Text(user.email),
       trailing: SizedBox(
         width: 100,
         child: Row(
@@ -39,7 +41,31 @@ class UserTile extends StatelessWidget {
               ),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (ctx) => AlertDialog(
+                    title: const Text('Excluir Usuario'),
+                    content: const Text('Deseja Realmente Excluir?'),
+                    actions: [
+                      TextButton(
+                        child: const Text('Não'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      TextButton(
+                        child: const Text('Sim'),
+                        onPressed: () {
+                          Provider.of<UsersProvider>(context, listen: false)
+                              .remove(user);
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  ),
+                );
+              },
               icon: const Icon(
                 Icons.delete,
                 color: Colors.red,
